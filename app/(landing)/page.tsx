@@ -1,7 +1,7 @@
 import Image from "next/image";
-import HeroSection from "./component/layouts/home/hero";
-import CategoriesSection from "./component/layouts/home/categories";
-import ProductsSection from "./component/layouts/home/products";
+import HeroSection from "./component/home/hero";
+import CategoriesSection from "./component/home/categories";
+import ProductsSection from "./component/home/products";
 
 export default function Home() {
   return <main>
