@@ -24,7 +24,7 @@ export async function fetchAPI<T>(
 
 export function getImageUrl(path: string) {
   if (path.startsWith("http")) return path; // artinya url nya sudah valid
-  return `${process.env.NEXT_PUBLIC_API_ROOT}${path}`;
+  return `${process.env.NEXT_PUBLIC_API_ROOT}/${path}`;
 }
 
 export function getAuthHeaders() {
