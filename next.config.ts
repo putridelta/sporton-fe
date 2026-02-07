@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "be-sporton.agunacourse.com",
-        pathname: "uploads/**",
+        pathname: "/uploads/**",
       },
     ],
   },

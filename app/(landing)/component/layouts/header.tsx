@@ -6,13 +6,15 @@ import Link from "next/link";
 import { FiSearch } from "react-icons/fi";
 import { FiShoppingBag } from "react-icons/fi";
 import CartPopup from "../ui/cart-popup";
+import { useCartStore } from "@/app/hooks/use-cart-store"; 
 
 
 const Header = () => {
-    const [isCartPopupOpen, setIsChartPopupOpen] = useState(false);
+    const {items} = useCartStore()
+    const [isCartPopupOpen, setIsCartPopupOpen] = useState(false);
 
-    return <header>
-        <div className="container mx-auto py-7 flex justify-between gap-10">
+    return <header className ="fixed w-full z-20 backdrop-blur-2xl bg-white/50">
+            <div className="container mx-auto py-7 flex justify-between gap-10">
             <Link href="/">
             <Image
                 src="/images/Logo.svg"
@@ -29,10 +31,12 @@ const Header = () => {
         <div className="flex gap-10">
             <FiSearch size={24} />
             <button>
-                <div className="relative cursor-pointer" onClick={() => setIsChartPopupOpen(!isCartPopupOpen)}>
+                <div className="relative cursor-pointer" onClick={() => setIsCartPopupOpen(!isCartPopupOpen)}>
                     <FiShoppingBag size={24} />
-                    <div className="bg-primary rounded-full w-[14px] h-[14px] absolute -top-1 -right-1 text-[10px] text-center text-white">3</div>
-                </div>
+                    {items.length ? (
+                    <div className="bg-primary rounded-full w-[14px] h-[14px] absolute -top-1 -right-1 text-[10px] text-center text-white">{items.length}</div>
+                    ) : null }
+                    </div>
             </button>
             {isCartPopupOpen && <CartPopup/>}
 

@@ -1,89 +1,66 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import Button from "../ui/button";
 import { FiPlus } from "react-icons/fi";
+import priceFormatter from "@/app/utils/price-formatter";
+import { Product } from "@/app/types";
+import { getImageUrl } from "@/app/lib/api";
+import { useCartStore } from "@/app/hooks/use-cart-store";
 
+type TProductsProps = {
+  products: Product[];
+};
 
-const productList = [
-    {
-        name: "SportsOn Hyperfast Shoes",
-        subName: "Running",
-        imgUrl: "shoes 2-cat 1.svg",
-        price: 329000,
-    },
-    {
-        name: "SportsOn Rockets Tennis",
-        subName: "Tenis",
-        imgUrl: "racket -cat 2.svg",
-        price: 999000,
-    },
-    {
-        name: "SportsOn Slowlivin",
-        subName: "Running",
-        imgUrl: "sportshirt 1-cat 3.svg",
-        price: 119000,
-    },
-    {
-        name: "SportsOn HyperSoccer v2",
-        subName: "Football",
-        imgUrl: "football-shoes-cat 4-5.svg",
-        price: 458000,
-    },
-    {
-        name: "SportsOn HyperSoccer v2",
-        subName: "Football",
-        imgUrl: "football-shoes-cat 4-5.svg",
-        price: 458000,
-    },
-    {
-        name: "SportsOn Slowlivin",
-        subName: "Running",
-        imgUrl: "sportshirt 1-cat 6.svg",
-        price: 119000,
-    },
-    {
-        name: "SportsOn Hyperfast Shoes",
-        subName: "Running",
-        imgUrl: "shoes 2-cat 7.svg",
-        price: 329000,
-    },
-    {
-        name: "SportsOn Rockets Tennis",
-        subName: "Tenis",
-        imgUrl: "racket-cat-8.svg",
-        price: 999000,
-    },
+const ProductsSection = ({ products }: TProductsProps) => {
+  const { addItem } = useCartStore();
 
-]
+  const handleAddtoCart = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem(product);
+  };
 
-const ProductsSection = () => {
-    return (
-        <section id="ProductSection" className="container mt-[80px] mx-auto px-[20px]">
-            <h2 className="text-4xl font-extrabold text-primary italic mx-auto text-center my-[50px]">OUR <span className="text-black">PRODUCT</span></h2>
-            <div className="grid grid-cols-4 gap-12">
-                {productList.map((item, index) => (
-                    <div key={index} className="">
-                        <div className=" relative w-[300px] h-auto shadow-lg p-1">
-                        <div className="relative w-full h-[281px] bg-[#F4EBEB] p-3">
-                            <Image
-                                src={`/images/products/${item.imgUrl}`}
-                                alt={item.name}
-                                fill
-                            />
-                        <div className="absolute bg-primary p-3 right-[10px] text-white">
-                            <FiPlus />
-                        </div>
-                        </div>
-                        <p className="text-medium text-lg py-3 px-2">{item.name}</p>
-                        <div className="flex justify-between text-sm text-gray px-2 mb-6">
-                            <p className="">{item.subName} </p>
-                            <p className="text-primary">{item.price}</p>
-                        </div>
-                        </div>
-
-                    </div>
-                ))}
+  return (
+    <section id="products-section" className="container mx-auto mt-32 mb-52">
+      <h2 className="font-bold italic text-4xl text-center mb-11">
+        <span className="text-primary">OUR </span>PRODUCTS
+      </h2>
+      <div className="grid grid-cols-4 gap-5">
+        {products.map((product) => (
+          <Link
+            href={`/product/${product._id}`}
+            key={product._id}
+            className="p-1.5 bg-white hover:drop-shadow-xl duration-300"
+          >
+            <div className="bg-primary-light aspect-square w-full flex justify-center items-center relative">
+              <Image
+                src={getImageUrl(product.imageUrl)}
+                alt={product.name}
+                width={300}
+                height={300}
+                className="aspect-square object-contain"
+              />
+              <Button
+                className="w-10 h-10 p-2! absolute top-3 right-3 "
+                onClick={(e) => handleAddtoCart(e, product)}
+              >
+                <FiPlus size={24} />
+              </Button>
             </div>
+            <h3 className="font-medium text-lg mb-1.5 mt-4">{product.name}</h3>
+            <div className="flex justify-between mb-8">
+              <div className="text-gray-500">{product.category?.name ?? "Uncategorized"}</div>
+              <div className="font-medium text-primary">
+                {priceFormatter(product.price)}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+};
 
-        </section>
-    )
-}
 export default ProductsSection;
