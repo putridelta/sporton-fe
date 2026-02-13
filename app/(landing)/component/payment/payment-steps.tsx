@@ -6,20 +6,64 @@ import FileUpload from "../ui/file-upload";
 import priceFormatter from "@/app/utils/price-formatter";
 import Button from "../ui/button";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useCartStore } from "@/app/hooks/use-cart-store";
+import CartItems from "../checkout/cart-items";
+import { transactionCheckout } from "@/app/services/transaction.service";
 
 const PaymentSteps = () => {
   const { push } = useRouter();
+  const {customerInfo, items, reset} = useCartStore();
+  const [file, setFile] = useState<File | null>();
+
+   const totalPrice = items.reduce(
+    (total, item) => total + item.price * item.qty,
+    0
+  );
 
   const uploadAndConfirm = () => {
     push("/order-status/123123123");
   };
+  const handleConfirmPayment = async () => {
+    if (!file){
+      alert("Please upload your payment receipt!");
+      return;
+    }
+
+    if(!customerInfo){
+      alert("Customer information is missing, please return to checkout");
+      push("/checkout");
+      return;
+    }
+
+    try{
+      const formData = new FormData();
+      formData.append("customerName", customerInfo.customerName);
+      formData.append("customerContact", customerInfo.customerContact!.toString());
+      formData.append("customerAddress", customerInfo.customerAddress);
+      formData.append("image", file)
+      formData.append("purchasedItem",
+        JSON.stringify(items.map((item)=> ({productId:item._id, qty: item.qty})))
+      );
+      formData.append("totalPayment", totalPrice!.toString())
+
+      const res = await transactionCheckout(formData);
+      alert("Transaction created successfully!");
+      reset();
+      push('/order-status/${res._id}');
+      // console.log("Transaction Response", res)
+
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   return (
     <CardWithHeader title="Payment Steps">
       <div className="p-5">
         <ol className="list-decimal text-xs pl-2 flex flex-col gap-4 mb-5">
           <li>
-            Transfer the total amount of <b>Rp. 1.035.000</b> to your preferred
+            Transfer the total amount of <b>{priceFormatter(totalPrice)}</b> to your preferred
             bank account listed under 'Payment Options' (BCA, Mandiri, or BTPN).
           </li>
           <li>
@@ -33,18 +77,18 @@ const PaymentSteps = () => {
             transaction.
           </li>
         </ol>
-        <FileUpload />
+        <FileUpload onFileSelect={setFile}/>
       </div>
 
       <div className="border-t border-gray-200 p-4">
         <div className="flex justify-between font-semibold">
           <div className="text-sm">Total</div>
-          <div className="text-primary text-xs">{priceFormatter(1035000)}</div>
+          <div className="text-primary text-xs">{priceFormatter(totalPrice)}</div>
         </div>
         <Button
           variant="dark"
           className="w-full mt-4"
-          onClick={uploadAndConfirm}
+          onClick={handleConfirmPayment}
         >
           <FiCheckCircle />
           Upload Receipt & Confirm
