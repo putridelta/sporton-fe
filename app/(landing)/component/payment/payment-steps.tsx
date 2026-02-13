@@ -50,7 +50,7 @@ const PaymentSteps = () => {
       const res = await transactionCheckout(formData);
       alert("Transaction created successfully!");
       reset();
-      push('/order-status/${res._id}');
+      push(`/order-status/${res._id}`);
       // console.log("Transaction Response", res)
 
     }catch(error){
