@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/app/(landing)/components/ui/button";
+import Button from "@/app/(landing)/component/ui/button";
 import { FiPlus } from "react-icons/fi";
 import ProductTable from "../../components/products/product-table";
 import ProductModal from "../../components/products/product-modal";

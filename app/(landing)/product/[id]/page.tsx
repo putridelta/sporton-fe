@@ -1,8 +1,8 @@
 import Image from "next/image";
-import ProductActions from "../../components/product-detail/product-actions";
 import priceFormatter from "@/app/utils/price-formatter";
 import { getProductDetail } from "@/app/services/product.service";
 import { getImageUrl } from "@/app/lib/api";
+import ProductActions from "../../component/product-detail/product-actionss";
 
 export type TPageProps = {
   params: Promise<{ id: string }>;

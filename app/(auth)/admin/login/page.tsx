@@ -1,6 +1,8 @@
 "use client";
 
-import Button from "@/app/(landing)/components/ui/button";
+
+import Input from "@/app/(dashboard)/components/ui/input";
+import Button from "@/app/(landing)/component/ui/button";
 import { login } from "@/app/services/auth.service";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -60,7 +62,7 @@ const LoginPage = () => {
 
         <div className="input-group-admin mb-5">
           <label htmlFor="email">Email</label>
-          <input
+          <Input
             type="email"
             id="email"
             name="email"
@@ -72,7 +74,7 @@ const LoginPage = () => {
         </div>
         <div className="input-group-admin mb-12">
           <label htmlFor="password">Password</label>
-          <input
+          <Input
             type="password"
             id="password"
             name="password"

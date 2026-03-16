@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import CartItems from "../components/checkout/cart-items";
-import OrderInformation from "../components/checkout/order-information";
+import CartItems from "../component/checkout/cart-items";
+import OrderInformation from "../component/checkout/order-information";
 import { CustomerInfo, useCartStore } from "@/app/hooks/use-cart-store";
 import { useRouter } from "next/navigation";
 
