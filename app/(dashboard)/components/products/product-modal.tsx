@@ -7,6 +7,7 @@ import { getAllCategories } from "@/app/services/category.service";
 import { createProduct, updateProduct } from "@/app/services/product.service";
 import { toast } from "react-toastify";
 import { getImageUrl } from "@/app/lib/api";
+import Input from "../ui/input";
 
 type TProductModalProps = {
   isOpen: boolean;
@@ -162,7 +163,7 @@ const ProductModal = ({
           <div className="flex flex-col gap-4 w-full">
             <div className="input-group-admin">
               <label htmlFor="productName">Product Name</label>
-              <input
+              <Input
                 type="text"
                 id="name"
                 name="name"
@@ -174,7 +175,7 @@ const ProductModal = ({
             <div className="grid grid-cols-2 gap-4">
               <div className="input-group-admin">
                 <label htmlFor="productPrice">Price (IDR)</label>
-                <input
+                <Input
                   type="number"
                   id="price"
                   name="price"
@@ -185,7 +186,7 @@ const ProductModal = ({
               </div>
               <div className="input-group-admin">
                 <label htmlFor="stock">Stock</label>
-                <input
+                <Input
                   type="number"
                   id="stock"
                   name="stock"
@@ -222,6 +223,7 @@ const ProductModal = ({
             id="description"
             rows={7}
             placeholder="Product Details..."
+            className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 p-2 rounded"
             value={formData.description}
             onChange={handleChange}
           ></textarea>

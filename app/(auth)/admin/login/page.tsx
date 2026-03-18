@@ -31,10 +31,14 @@ const LoginPage = () => {
         router.push("/admin/products");
       }
     } catch (err: any) {
-      setErrorMessage(
-        err.message || "Something went wrong, please try again later.",
-      );
+      const message = err?.response?.data?.message || 
+      err.message || "Login failed";
+      setErrorMessage(message);
+      // setErrorMessage(
+      //   err.message || "Something went wrong, please try again later.",
+      //);
       console.error("Login error", err);
+      console.log({ email, password });
     } finally {
       setIsLoading(false);
     }

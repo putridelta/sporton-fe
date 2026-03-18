@@ -9,6 +9,7 @@ import {
   updateCategory,
 } from "@/app/services/category.service";
 import { toast } from "react-toastify";
+import Input from "../ui/input";
 
 type TCategoryModalProps = {
   isOpen: boolean;
@@ -131,7 +132,7 @@ const CategoryModal = ({
           <div className="flex flex-col gap-4 w-full">
             <div className="input-group-admin">
               <label htmlFor="categoryName">Category Name</label>
-              <input
+              <Input
                 type="text"
                 id="name"
                 name="name"
@@ -148,6 +149,7 @@ const CategoryModal = ({
                 id="description"
                 rows={4}
                 placeholder="Category Details..."
+                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 p-2 rounded"
                 value={formData.description}
                 onChange={handleChange}
               ></textarea>

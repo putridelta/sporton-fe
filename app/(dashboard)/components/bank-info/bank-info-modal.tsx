@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Bank } from "@/app/types";
 import { createBank, updateBank } from "@/app/services/bank.service";
 import { toast } from "react-toastify";
+import Input from "../ui/input";
 
 type TBankInfoModalProps = {
   isOpen: boolean;
@@ -98,7 +99,7 @@ const BankInfoModal = ({
         <div className="flex flex-col gap-4 w-full">
           <div className="input-group-admin">
             <label htmlFor="bankName">Bank Name</label>
-            <input
+            <Input
               type="text"
               id="bankName"
               name="bankName"
@@ -109,7 +110,7 @@ const BankInfoModal = ({
           </div>
           <div className="input-group-admin">
             <label htmlFor="accountNumber">Account Number</label>
-            <input
+            <Input
               type="text"
               id="accountNumber"
               name="accountNumber"
@@ -120,7 +121,7 @@ const BankInfoModal = ({
           </div>
           <div className="input-group-admin">
             <label htmlFor="accountName">Account Name / Holder</label>
-            <input
+            <Input
               type="text"
               id="accountName"
               name="accountName"

@@ -25,8 +25,8 @@ const Header = () => {
         </Link>
         <nav className="flex gap-44 font-medium">
             <Link href="#" className="relative after:content-[''] after:block after:bg-primary after:rounded-full after:h-[3px] after:w-1/2 after:absolute after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2">Home</Link>
-            <Link href="#">Category</Link>
-            <Link href="#">Products</Link>
+            <Link href="#category">Category</Link>
+            <Link href="#product">Products</Link>
         </nav>
         <div className="flex gap-10">
             <FiSearch size={24} />
